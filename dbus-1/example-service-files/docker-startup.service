@@ -1,0 +1,14 @@
+[Unit]
+Description=Docker App Startup Time
+Requires=docker.service
+
+[Service]
+ExecStartPre=-/usr/bin/docker stop startup
+ExecStartPre=-/usr/bin/docker rm startup
+ExecStart=/usr/bin/docker run --name startup --privileged -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket startup:1.0 /Applications/hello.out
+type=dbus
+BusName=test.signal.source
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

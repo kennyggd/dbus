@@ -1,0 +1,11 @@
+[Unit]
+Description=Flatpak App Startup Time
+
+[Service]
+ExecStart=/usr/bin/flatpak run org.bosch.startup
+type=dbus
+BusName=test.signal.source
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

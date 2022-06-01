@@ -6,7 +6,6 @@
  * You may do whatever you like with it.
  */
 #include <dbus/dbus.h>
-#include <stdbool.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +17,7 @@ int main(void)
    DBusError err;
    int ret;
 
+   printf("enter dbus-startup program...");
    // initialise the error value
    dbus_error_init(&err);
 
@@ -25,6 +25,7 @@ int main(void)
    conn = dbus_bus_get(DBUS_BUS_SYSTEM, &err);
    if (dbus_error_is_set(&err)) { 
       fprintf(stderr, "Connection Error (%s)\n", err.message); 
+      printf("Connection Error");
       dbus_error_free(&err); 
    }
    if (NULL == conn) { 
@@ -35,11 +36,12 @@ int main(void)
    ret = dbus_bus_request_name(conn, "test.signal.source", DBUS_NAME_FLAG_REPLACE_EXISTING , &err);
    if (dbus_error_is_set(&err)) { 
       fprintf(stderr, "Name Error (%s)\n", err.message); 
+      printf("Name Error");
       dbus_error_free(&err); 
    }
    if (DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER != ret) { 
       return 1;
    }
-
+   printf("Enter while loop...");
    while(1);
 }

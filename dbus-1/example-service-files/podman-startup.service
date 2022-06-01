@@ -1,0 +1,14 @@
+[Unit]
+Description=Podman App Startup Time
+Requires=docker.service
+
+[Service]
+ExecStart=/usr/bin/podman run --rm --network=host --name startup --privileged -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket startup:1.0 /Applications/hello.out
+ExecStop=/usr/bin/podman kill startup
+ExecStopPost=/usr/bin/podman rm startup
+Type=dbus
+BusName=test.signal.source
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

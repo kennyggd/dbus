@@ -1,0 +1,11 @@
+[Unit]
+Description=LXC App Startup Time (lxc-start)
+
+[Service]
+ExecStart=sudo /usr/bin/lxc-start -n startup -- dbus-startup 
+Type=dbus
+BusName=test.signal.source
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
